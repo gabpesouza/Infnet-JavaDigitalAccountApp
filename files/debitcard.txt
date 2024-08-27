@@ -1,1 +1,1 @@
-BRL/0.0/100.0/true/5163791269201600/543/2026-05-23/generic holder/1000.0/1500.0
+?currency=BRL&fee=0.0&amount=100.0&isActive=true&number=5163791229201600&securityCode=543&expirationDate=2026-05-23&holder=genericHolder&dailyWithdrawalLimit=1000.0&overdraftLimit=2000.0&digitalAccountId=2

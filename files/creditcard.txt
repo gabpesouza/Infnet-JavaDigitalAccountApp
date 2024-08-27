@@ -1,1 +1,1 @@
-EUR/0.0/100.0/true/5156547032749377/266/2028-01-01/generic holder 1/10000.0/1.5
+?currency=EUR&fee=0.0&amount=200.0&isActive=true&number=5156543322749377&securityCode=543&expirationDate=2026-05-23&holder=genericHolder&limit=10000.0&interestRate=1.5&digitalAccountId=1

@@ -1,36 +1,47 @@
 package br.edu.infnet.appgabrielpereira;
 
 import br.edu.infnet.appgabrielpereira.model.domain.CreditCard;
+import br.edu.infnet.appgabrielpereira.model.domain.DigitalAccount;
 import br.edu.infnet.appgabrielpereira.model.service.CreditCardService;
+import br.edu.infnet.appgabrielpereira.model.service.DigitalAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class CreditCardLoader implements ApplicationRunner {
 
     @Autowired
-    private CreditCardService service;
+    private CreditCardService creditCardService;
+
+    @Autowired
+    private DigitalAccountService digitalAccountService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         try (FileReader reader = new FileReader("files/creditcard.txt")) {
             BufferedReader br = new BufferedReader(reader);
             String line = br.readLine();
 
             while (line != null) {
-                String[] creditCardData = line.split("/");
-                CreditCard creditCard = getCreditCardData(creditCardData);
-                this.service.add(creditCard);
+                Map<String, String> singleValueMap = UriComponentsBuilder.fromUriString(line).build().getQueryParams().toSingleValueMap();
+                int digitalAccountId = Integer.parseInt(singleValueMap.get("digitalAccountId"));
+                DigitalAccount digitalAccount = Objects.requireNonNull(digitalAccountService.getByKey(digitalAccountId), String.format("Digital account id: %d not found", digitalAccountId));
+                CreditCard creditCard = getCreditCardData(singleValueMap);
+                creditCard.setDigitalAccount(digitalAccount);
+                this.creditCardService.add(creditCard);
                 line = br.readLine();
             }
 
-            for (CreditCard creditCard : this.service.getAll().values()) {
+            for (CreditCard creditCard : this.creditCardService.getAll()) {
                 System.out.println(creditCard);
             }
 
@@ -39,18 +50,18 @@ public class CreditCardLoader implements ApplicationRunner {
         }
     }
 
-    public static CreditCard getCreditCardData(String[] creditCardData) {
+    public static CreditCard getCreditCardData(Map<String, String> singleValueMap) {
         return new CreditCard(
-                creditCardData[0],
-                Double.parseDouble(creditCardData[1]),
-                Double.parseDouble(creditCardData[2]),
-                Boolean.parseBoolean(creditCardData[3]),
-                creditCardData[4],
-                creditCardData[5],
-                LocalDate.parse(creditCardData[6]),
-                creditCardData[7],
-                Double.parseDouble(creditCardData[8]),
-                Double.parseDouble(creditCardData[9])
+                singleValueMap.get("currency"),
+                Double.parseDouble(singleValueMap.get("fee")),
+                Double.parseDouble(singleValueMap.get("amount")),
+                Boolean.parseBoolean(singleValueMap.get("isActive")),
+                singleValueMap.get("number"),
+                singleValueMap.get("securityCode"),
+                LocalDate.parse(singleValueMap.get("expirationDate")),
+                singleValueMap.get("holder"),
+                Double.parseDouble(singleValueMap.get("limit")),
+                Double.parseDouble(singleValueMap.get("interestRate"))
         );
     }
 }

@@ -1,15 +1,20 @@
 package br.edu.infnet.appgabrielpereira.model.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+@PrimaryKeyJoinColumn(name = "pix_id")
 public class Pix extends PaymentMethod{
 
-    private static final String PHONE_KEY_TYPE = "PHONE";
-    private static final String EMAIL_KEY_TYPE = "EMAIL";
-    private static final String CPF_KEY_TYPE = "CPF";
-    private static final String CNPJ_KEY_TYPE = "CNPJ";
-
-
+    @Column(name = "pix_key")
     private String key;
     private String keyType;
+
+    public Pix() {
+
+    }
 
     public Pix(String currency, double fee, double amount, boolean isActive, String key, String keyType) {
         super(currency, fee, amount, isActive);
@@ -23,6 +28,10 @@ public class Pix extends PaymentMethod{
 
     public String getKeyType() {
         return keyType;
+    }
+
+    public double getAmount(){
+        return this.amount;
     }
 
     @Override

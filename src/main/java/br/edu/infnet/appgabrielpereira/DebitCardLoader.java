@@ -1,21 +1,29 @@
 package br.edu.infnet.appgabrielpereira;
 
 import br.edu.infnet.appgabrielpereira.model.domain.DebitCard;
+import br.edu.infnet.appgabrielpereira.model.domain.DigitalAccount;
 import br.edu.infnet.appgabrielpereira.model.service.DebitCardService;
+import br.edu.infnet.appgabrielpereira.model.service.DigitalAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class DebitCardLoader implements ApplicationRunner {
 
     @Autowired
-    private DebitCardService service;
+    private DebitCardService debitCardService;
+
+    @Autowired
+    private DigitalAccountService digitalAccountService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -24,13 +32,16 @@ public class DebitCardLoader implements ApplicationRunner {
             String line = br.readLine();
 
             while (line != null) {
-                String[] debitCardData = line.split("/");
-                DebitCard debitCard = getDebitCardData(debitCardData);
-                this.service.add(debitCard);
+                Map<String, String> singleValueMap = UriComponentsBuilder.fromUriString(line).build().getQueryParams().toSingleValueMap();
+                int digitalAccountId = Integer.parseInt(singleValueMap.get("digitalAccountId"));
+                DigitalAccount digitalAccount = Objects.requireNonNull(digitalAccountService.getByKey(digitalAccountId), String.format("Digital account id: %d not found", digitalAccountId));
+                DebitCard debitCard = getDebitCardData(singleValueMap);
+                debitCard.setDigitalAccount(digitalAccount);
+                this.debitCardService.add(debitCard);
                 line = br.readLine();
             }
 
-            for (DebitCard debitCard : this.service.getAll().values()) {
+            for (DebitCard debitCard : this.debitCardService.getAll()) {
                 System.out.println(debitCard);
             }
 
@@ -39,19 +50,19 @@ public class DebitCardLoader implements ApplicationRunner {
         }
     }
 
-    public static DebitCard getDebitCardData(String[] debitCardData) {
+    public static DebitCard getDebitCardData(Map<String, String> debitCardData) {
 
         return new DebitCard(
-                debitCardData[0],
-                Double.parseDouble(debitCardData[1]),
-                Double.parseDouble(debitCardData[2]),
-                Boolean.parseBoolean(debitCardData[3]),
-                debitCardData[4],
-                debitCardData[5],
-                LocalDate.parse(debitCardData[6]),
-                debitCardData[7],
-                Double.parseDouble(debitCardData[8]),
-                Double.parseDouble(debitCardData[9])
+                debitCardData.get("currency"),
+                Double.parseDouble(debitCardData.get("fee")),
+                Double.parseDouble(debitCardData.get("amount")),
+                Boolean.parseBoolean(debitCardData.get("isActive")),
+                debitCardData.get("number"),
+                debitCardData.get("securityCode"),
+                LocalDate.parse(debitCardData.get("expirationDate")),
+                debitCardData.get("holder"),
+                Double.parseDouble(debitCardData.get("dailyWithdrawalLimit")),
+                Double.parseDouble(debitCardData.get("overdraftLimit"))
         );
     }
 }

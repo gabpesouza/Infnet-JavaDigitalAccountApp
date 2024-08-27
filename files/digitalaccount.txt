@@ -1,0 +1,8 @@
+?digitalAccount=nubank
+?paymentMethod=DebitCard&currency=BRL&fee=0.0&amount=100.0&isActive=true&number=5163791249201600&securityCode=543&expirationDate=2026-05-23&holder=genericHolder&dailyWithdrawalLimit=1000.0&overdraftLimit=2000.0
+?paymentMethod=CreditCard&currency=EUR&fee=0.0&amount=200.0&isActive=true&number=5156547732749377&securityCode=543&expirationDate=2026-05-23&holder=genericHolder&limit=10000.0&interestRate=1.5
+?paymentMethod=Pix&currency=USD&fee=0.0&amount=300.00&isActive=true&key=26790212078&keyType=CPF
+?digitalAccount=itau
+?paymentMethod=DebitCard&currency=USD&fee=0.0&amount=100.0&isActive=true&number=5163791269101600&securityCode=543&expirationDate=2026-05-23&holder=genericHolder&dailyWithdrawalLimit=1000.0&overdraftLimit=2000.0
+?paymentMethod=CreditCard&currency=USD&fee=0.0&amount=200.0&isActive=true&number=5156547449377&securityCode=543&expirationDate=2026-05-23&holder=genericHolder&limit=10000.0&interestRate=1.5
+?paymentMethod=Pix&currency=USD&fee=0.0&amount=100.00&isActive=true&key=26790212078&keyType=CPF

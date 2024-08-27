@@ -1,1 +1,1 @@
-USD/0.0/100.0/true/26790212078/CPF
+?currency=USD&fee=0.0&amount=200.00&isActive=true&key=1999999999&keyType=PHONE&digitalAccountId=1

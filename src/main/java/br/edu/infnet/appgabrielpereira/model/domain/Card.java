@@ -1,13 +1,21 @@
 package br.edu.infnet.appgabrielpereira.model.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+
 import java.time.LocalDate;
 
+@MappedSuperclass
 public abstract class Card extends PaymentMethod {
 
+    @Column(name = "card_number", unique = true)
     protected String number;
     protected String securityCode;
     protected LocalDate expirationDate;
     protected String holderName;
+
+    public Card() {
+    }
 
     public Card(String currency,
                 double fee,

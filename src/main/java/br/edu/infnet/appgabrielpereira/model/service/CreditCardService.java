@@ -1,35 +1,29 @@
 package br.edu.infnet.appgabrielpereira.model.service;
 
 import br.edu.infnet.appgabrielpereira.model.domain.CreditCard;
+import br.edu.infnet.appgabrielpereira.model.repository.ICreditCardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class CreditCardService {
 
-    private Map<Integer, CreditCard> creditCards = new HashMap<>();
-    private Integer CreditCardId = 0;
+    @Autowired
+    private ICreditCardRepository creditCardRepository;
 
-    public void add(CreditCard creditCard) {
-        creditCard.setId(this.incrementCreditCardId());
-        creditCards.put(creditCard.getId(), creditCard);
+    public CreditCard add(CreditCard creditCard) {
+        return this.creditCardRepository.save(creditCard);
     }
 
     public CreditCard getByKey(Integer key) {
-        return this.creditCards.get(key);
+        return this.creditCardRepository.findById(key).orElse(null);
     }
 
-    public Map<Integer, CreditCard> getAll() {
-        return this.creditCards;
+    public Iterable<CreditCard> getAll() {
+        return this.creditCardRepository.findAll();
     }
 
-    public Integer getCreditCardId() {
-        return CreditCardId;
-    }
-
-    public Integer incrementCreditCardId() {
-        return ++this.CreditCardId;
+    public void remove(int creditCardId) {
+        this.creditCardRepository.deleteById(creditCardId);
     }
 }

@@ -1,15 +1,30 @@
 package br.edu.infnet.appgabrielpereira.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PaymentMethod {
     public static final String PIX_METHOD = "Pix";
     public static final String CREDIT_METHOD = "CreditCard";
     public static final String DEBIT_METHOD = "DebitCard";
 
-    protected int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Integer id;
     protected String currency;
-    protected double fee;
+    protected Double fee;
     protected double amount;
     protected boolean isActive;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "digital_account_id")
+    protected DigitalAccount digitalAccount;
+
+    public PaymentMethod() {
+    }
 
     public PaymentMethod(String currency, double fee, double amount, boolean isActive) {
         this.currency = currency;
@@ -42,6 +57,14 @@ public class PaymentMethod {
         this.id = id;
     }
 
+    public DigitalAccount getDigitalAccount() {
+        return digitalAccount;
+    }
+
+    public void setDigitalAccount(DigitalAccount digitalAccount) {
+        this.digitalAccount = digitalAccount;
+    }
+
     @Override
     public String toString() {
         return "PaymentMethod{" +
@@ -49,6 +72,7 @@ public class PaymentMethod {
                 ", fee=" + fee +
                 ", amount=" + amount +
                 ", isActive=" + isActive +
+                ", DigitalAccount=" + digitalAccount +
                 '}';
     }
 }

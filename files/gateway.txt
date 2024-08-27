@@ -1,8 +1,0 @@
-gateway-InfnetGateway
-paymentMethod-DebitCard;BRL/0.0/100.0/true/5163791269201600/543/2026-05-23/generic holder/1000.0/1500.0
-paymentMethod-CreditCard;EUR/0.0/100.0/true/5156547032749377/266/2028-01-01/generic holder 2/10000.0/1.5
-paymentMethod-Pix;USD/0.0/100.0/true/26790212078/CPF
-gateway-MyGateway
-paymentMethod-Pix;USD/0.0/100.0/true/26790212078/CPF
-paymentMethod-CreditCard;EUR/0.0/100.0/true/5156547032749377/266/2028-01-01/generic holder 2/10000.0/1.5
-paymentMethod-DebitCard;BRL/0.0/100.0/true/5163791269201600/543/2026-05-23/generic holder/1000.0/1500.0

@@ -1,35 +1,29 @@
 package br.edu.infnet.appgabrielpereira.model.service;
 
 import br.edu.infnet.appgabrielpereira.model.domain.DebitCard;
+import br.edu.infnet.appgabrielpereira.model.repository.IDebitCardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class DebitCardService {
 
-    private Map<Integer, DebitCard> debitCards = new HashMap<>();
-    private Integer debitCardId = 0;
+    @Autowired
+    private IDebitCardRepository debitCardRepository;
 
-    public void add(DebitCard debitCard) {
-        debitCard.setId(this.incrementPaymentGatewayId());
-        debitCards.put(debitCard.getId(), debitCard);
+    public DebitCard add(DebitCard debitCard) {
+        return this.debitCardRepository.save(debitCard);
     }
 
     public DebitCard getByKey(Integer key) {
-        return this.debitCards.get(key);
+        return this.debitCardRepository.findById(key).orElse(null);
     }
 
-    public Map<Integer, DebitCard> getAll() {
-        return this.debitCards;
+    public Iterable<DebitCard> getAll() {
+        return this.debitCardRepository.findAll();
     }
 
-    public Integer getDebitCardId() {
-        return debitCardId;
-    }
-
-    public Integer incrementPaymentGatewayId() {
-        return ++this.debitCardId;
+    public void remove(int id) {
+        this.debitCardRepository.deleteById(id);
     }
 }

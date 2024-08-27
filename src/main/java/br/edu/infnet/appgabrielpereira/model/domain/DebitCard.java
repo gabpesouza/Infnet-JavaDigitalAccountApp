@@ -1,12 +1,24 @@
 package br.edu.infnet.appgabrielpereira.model.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+
 import java.time.LocalDate;
 
+@Entity
+@PrimaryKeyJoinColumn(name = "debitCardId")
 public class DebitCard extends Card {
+
+    public static final String DEFAULT_CURRENCY = "BRL";
+    public static final double DEFAULT_FEE = 0.0;
+    public static final double DEFAULT_DAILY_WITHDRAWAL_LIMIT = 1000.0;
+    public static final double DEFAULT_OVERDRAFT_LIMIT = 2000.0;
 
     private double dailyWithdrawalLimit;
     private double overdraftLimit;
 
+    public DebitCard() {
+    }
 
     public DebitCard(String currency,
                      double fee,
@@ -30,6 +42,10 @@ public class DebitCard extends Card {
 
     public double getOverdraftLimit() {
         return overdraftLimit;
+    }
+
+    public double getAmount() {
+        return this.amount;
     }
 
     @Override

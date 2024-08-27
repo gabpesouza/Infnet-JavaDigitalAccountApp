@@ -1,39 +1,40 @@
 package br.edu.infnet.appgabrielpereira.model.service;
 
 import br.edu.infnet.appgabrielpereira.model.domain.Pix;
+import br.edu.infnet.appgabrielpereira.model.repository.IPixRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
 
 @Service
 public class PixService {
 
-    private Map<Integer, Pix> pix = new HashMap<>();
-    private Integer pixId = 0;
+    @Autowired
+    private IPixRepository pixRepository;
 
-    public void add(Pix pix) {
-        pix.setId(this.incrementPaymentGatewayId());
-        this.pix.put(pix.getId(), pix);
+    public Pix add(Pix pix) {
+        return pixRepository.save(pix);
     }
 
     public Pix getByKey(Integer key) {
-        return this.pix.get(key);
+        return pixRepository.findById(key).orElse(null);
     }
 
-    public Map<Integer, Pix> getAll() {
-        return this.pix;
+    public Collection<Pix> getByKeyType(String keyType) {
+        return pixRepository.findByKeyType(keyType);
     }
 
-    public Integer getPixId() {
-        return this.pixId;
+    public Iterable<Pix> getAll() {
+        return pixRepository.findAll();
     }
 
-    public Integer incrementPaymentGatewayId() {
-        return ++this.pixId;
+    public Collection<Pix> findAllSortedByAmountDesc() {
+        return pixRepository.findAll(Sort.by(Sort.Direction.DESC, "amount"));
     }
 
     public void remove(Integer key) {
-        this.pix.remove(key);
+       pixRepository.deleteById(key);
     }
 }
