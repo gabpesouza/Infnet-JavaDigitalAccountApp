@@ -170,3 +170,311 @@
 
 - **Método:** GET
 - **URL:** `http://localhost:8080/pix/amount/sorted`
+
+
+## Json da coleção de endpoints para import no postman:
+{
+    "info": {
+        "_postman_id": "b09b4a11-1e34-47d1-8bce-101aec2a886b",
+        "name": "DigitalAccountProject",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+        "_exporter_id": "31041085"
+    },
+    "item": [
+        {
+            "name": "CreditCard",
+            "item": [
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/credit-card/list"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get by id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/credit-card/1"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Store",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "number": "111111111111",
+                                "securityCode": "555",
+                                "expirationDate": "2030-05-01",
+                                "holderName": "generic holder 2",
+                                "limit": 30000,
+                                "interestRate": 2.5
+                        },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/credit-card/create"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/credit-card/1/delete"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "DebitCard",
+            "item": [
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/debit-card/list"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get by id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/debit-card/1"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Store",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "number": "5163791269201600",
+                                "securityCode": "543",
+                                "expirationDate": "2026-05-23",
+                                "holderName": "generic holder",
+                                "dailyWithdrawalLimit": 1000,
+                                "overdraftLimit": 1500
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/debit-card/create"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/debit-card/1/delete"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "DigitalAccount",
+            "item": [
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/digital-account/list"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get by id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/digital-account/1"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Store",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "provider": "meu banco teste",
+                                "paymentMethods": [
+                                    {
+                                        "key": "26790212078",
+                                        "keyType": "CPF"
+                                    },
+                                    {
+                                        "number": "5156547032749377",
+                                        "securityCode": "266",
+                                        "expirationDate": "2028-01-01",
+                                        "holderName": "generic holder 2",
+                                        "limit": 10000,
+                                        "interestRate": 1.5
+                                    },
+                                    {
+                                        "number": "5163791269201600",
+                                        "securityCode": "543",
+                                        "expirationDate": "2026-05-23",
+                                        "holderName": "generic holder",
+                                        "dailyWithdrawalLimit": 1000,
+                                        "overdraftLimit": 1500
+                                    }
+                                ]
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/digital-account/create"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/digital-account/1/delete"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Pix",
+            "item": [
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/pix/list"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get by id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/pix/1"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Store",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": {
+                                "key": "49578037813",
+                                "keyType": "CPF"
+                            },
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/pix/create"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:8080/pix/3/delete"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get by Key Type",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/pix/key-type/cpf"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get all sorted by amount desc",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": "http://localhost:8080/pix/amount/sorted"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
